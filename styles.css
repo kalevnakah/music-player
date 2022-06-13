@@ -84,6 +84,7 @@ body {
 .album-song-list {
   width: 100%;
   border-left: 4px solid var(--border-color);
+  overflow-y: scroll;
 }
 
 .album-song-list ul {
