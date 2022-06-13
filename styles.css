@@ -1,0 +1,159 @@
+:root {
+  --accent-color: #a44932;
+  --highlight-color: #cfb686;
+  --brand-color: #1411e4;
+  --border-color: #000;
+  --background-black: #000;
+  --background-white: #fff;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+/* Scrolling for Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--background-black);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--highlight-color);
+  border-radius: 20px;
+  border: 3px solid var(--background-black);
+}
+
+body {
+  height: 100hv;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+.music-box {
+  border: 5px solid var(--border-color);
+  width: 600px;
+  position: relative;
+  scrollbar-width: thin;
+  scrollbar-color: var(--highlight-color) var(--background-black);
+}
+
+.album-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+.switch-album {
+  border: 2px solid var(--border-color);
+  background-color: var(--background-black);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.switch-album:hover {
+  background-color: var(--brand-color);
+}
+
+.album {
+  border-top: 4px solid var(--border-color);
+  border-bottom: 4px solid var(--border-color);
+  display: flex;
+  flex-direction: row;
+  height: 347px;
+}
+
+.album-img-box {
+  height: 100%;
+}
+
+.album-img-box img {
+  height: 100%;
+}
+
+.album-song-list {
+  width: 100%;
+  border-left: 4px solid var(--border-color);
+}
+
+.album-song-list ul {
+  padding: 0;
+  list-style-type: none;
+}
+
+.album-song-list li {
+  border-bottom: 2px solid var(--border-color);
+  text-align: center;
+  padding: 0.25em;
+  cursor: pointer;
+}
+
+.album-menu {
+  background-color: var(--background-black);
+  display: flex;
+  flex-direction: row;
+  overflow-x: scroll;
+  height: 375px;
+  /* display: none;
+  visibility: hidden; */
+}
+
+.album-menu img {
+  height: 180px;
+  cursor: pointer;
+  margin: auto 12px;
+  box-shadow: 5px 5px 8px var(--highlight-color);
+}
+
+.music-controls {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  position: relative;
+  margin: 10px 0px;
+}
+
+.play-pause {
+  font-size: 20px;
+  padding: 12px;
+}
+
+.play-pause:hover {
+  color: var(--brand-color);
+}
+
+.progress-box {
+  border: 2px solid var(--border-color);
+  cursor: pointer;
+  margin: 10px 0;
+  height: 10px;
+  width: 100%;
+  margin: auto;
+  margin-right: 5px;
+}
+
+.progress-bar {
+  background-color: var(--accent-color);
+  width: 50%;
+  height: 100%;
+}
+
+.song-title {
+  text-align: center;
+  padding-top: 0.5em;
+  position: absolute;
+  z-index: -10;
+  top: 10;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
