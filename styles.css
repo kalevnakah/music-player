@@ -4,7 +4,7 @@
   --brand-color: #1411e4;
   --border-color: #000;
   --background-black: #000;
-  --background-white: #fff;
+  --background-white: #f5f5f5;
 }
 
 * {
@@ -35,15 +35,26 @@ body {
   justify-content: center;
   margin: 0;
   padding: 0;
+  background-color: var(--highlight-color);
+}
+
+.header {
+  margin: 100px 0 10px 0;
+  text-align: center;
+}
+
+.header h1 {
+  padding: 20px;
 }
 
 .music-box {
   border: 5px solid var(--border-color);
-  border-radius: 10px;
+  border-radius: 6px;
   width: 600px;
   position: relative;
   scrollbar-width: thin;
-  scrollbar-color: var(--highlight-color) var(--background-black);
+  scrollbar-color: var(--highlight-color);
+  background-color: var(--background-white);
 }
 
 .album-title {
@@ -51,6 +62,7 @@ body {
   flex-direction: row;
   justify-content: space-between;
   padding: 5px;
+  background-color: var(--background-white);
 }
 
 .switch-album {
@@ -77,6 +89,7 @@ body {
 
 .album-img-box {
   height: 100%;
+  background-color: #000;
 }
 
 .album-img-box img {
@@ -99,6 +112,7 @@ body {
   text-align: center;
   padding: 0.25em;
   cursor: pointer;
+  background-color: var(--background-white);
 }
 
 .album-song-list li:hover {
@@ -153,6 +167,7 @@ body {
   margin: auto;
   margin-right: 5px;
   transform: translateY(-12px);
+  background-color: var(--background-white);
 }
 
 .progress-bar {
@@ -164,7 +179,6 @@ body {
   text-align: center;
   padding-top: 0.5em;
   position: absolute;
-  z-index: -10;
   top: 10;
   left: 50%;
   transform: translate(-50%, 15px);

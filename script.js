@@ -107,7 +107,6 @@ let songCurrent = convertToVariable(albumCurrent)[0];
 
 // Load Album Art into Menu
 function initAlbums() {
-  albumMenu.innerHTML = '';
   albums.forEach((album) => {
     let imgTag = document.createElement('img');
     imgTag.src = `images/${album}.jpg`;
@@ -139,6 +138,7 @@ function loadAlbum(album) {
     song.addEventListener('click', (e) => {
       loadSong(e.target.innerHTML);
       playSong();
+      e.target.style.color = 'var(--brand-color)';
     });
   }
 
@@ -226,10 +226,9 @@ playPause.addEventListener('click', () => {
 // Listen for progress bar click
 progressBox.addEventListener('click', setProgress);
 
-// Update progress bar with audio
+// Audio Element Listeners
 audioTag.addEventListener('timeupdate', updateProgress);
+audioTag.addEventListener('ended', playNextSong);
 
 // Listen for Switch button clicked to change the view;
 switchBtn.addEventListener('click', switchAlbum);
-
-audioTag.addEventListener('ended', playNextSong);
