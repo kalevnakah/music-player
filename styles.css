@@ -39,6 +39,7 @@ body {
 
 .music-box {
   border: 5px solid var(--border-color);
+  border-radius: 10px;
   width: 600px;
   position: relative;
   scrollbar-width: thin;
@@ -59,6 +60,7 @@ body {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  visibility: hidden;
 }
 
 .switch-album:hover {
@@ -99,14 +101,17 @@ body {
   cursor: pointer;
 }
 
+.album-song-list li:hover {
+  color: var(--brand-color);
+  font-weight: bold;
+}
+
 .album-menu {
   background-color: var(--background-black);
   display: flex;
   flex-direction: row;
   overflow-x: scroll;
-  height: 375px;
-  /* display: none;
-  visibility: hidden; */
+  height: 347px;
 }
 
 .album-menu img {
@@ -114,6 +119,11 @@ body {
   cursor: pointer;
   margin: auto 12px;
   box-shadow: 5px 5px 8px var(--highlight-color);
+}
+
+.hide-view {
+  display: none;
+  visibility: hidden;
 }
 
 .music-controls {
@@ -127,6 +137,7 @@ body {
 .play-pause {
   font-size: 20px;
   padding: 12px;
+  transform: translateY(-12px);
 }
 
 .play-pause:hover {
@@ -141,11 +152,11 @@ body {
   width: 100%;
   margin: auto;
   margin-right: 5px;
+  transform: translateY(-12px);
 }
 
 .progress-bar {
   background-color: var(--accent-color);
-  width: 50%;
   height: 100%;
 }
 
@@ -156,5 +167,6 @@ body {
   z-index: -10;
   top: 10;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, 15px);
+  width: 100%;
 }

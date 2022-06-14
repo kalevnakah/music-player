@@ -6,8 +6,9 @@ const albumTitle = document.getElementById('album-title');
 const albumImage = document.getElementById('album-img');
 const songList = document.getElementById('song-list');
 
-//album Menu
+//album Menu and Player
 const albumMenu = document.getElementById('album-menu');
+const albumPlayer = document.getElementById('album');
 
 // HTML Audio Controls
 const musicControls = document.getElementById('music-controls');
@@ -24,9 +25,6 @@ const albums = [
   'Close To You',
   'Christmas',
 ];
-
-// Currently Selected Album
-let albumCurrent = albums[0];
 
 // Albums
 const TheBaumannBrothers = [
@@ -96,6 +94,17 @@ const Christmas = [
   '15 Away in a Manger',
 ];
 
+// Convert album name to Array variable
+function convertToVariable(album) {
+  const arrVar1 = album.replace(/\s+/g, '');
+  const arrVarEval1 = eval(arrVar1);
+  return arrVarEval1;
+}
+
+// Currently Selected Album & Song
+let albumCurrent = albums[0];
+let songCurrent = convertToVariable(albumCurrent)[0];
+
 // Load Album Art into Menu
 function initAlbums() {
   albumMenu.innerHTML = '';
@@ -106,7 +115,7 @@ function initAlbums() {
     imgTag.id = `${album}`;
     albumMenu.appendChild(imgTag);
   });
-  loadAlbum(albumCurrent);
+  loadSong(songCurrent);
 }
 
 // Load selected album into the player and hide album select menu
@@ -117,8 +126,9 @@ function loadAlbum(album) {
 
   songList.innerHTML = '';
 
-  arrVar = album.replace(/\s+/g, '');
-  eval(arrVar).forEach((song) => {
+  // Create song list
+  const albumArr = convertToVariable(album);
+  albumArr.forEach((song) => {
     let songTag = document.createElement('li');
     songTag.innerHTML = `${song}`;
     songList.appendChild(songTag);
@@ -128,14 +138,28 @@ function loadAlbum(album) {
   for (var song of document.querySelectorAll('#song-list li')) {
     song.addEventListener('click', (e) => {
       loadSong(e.target.innerHTML);
+      playSong();
     });
   }
+
+  // Switch to album player view
+  albumMenu.classList.add('hide-view');
+  albumPlayer.classList.remove('hide-view');
+  switchBtn.style.visibility = 'visible';
+}
+
+// Switch to album selection view
+function switchAlbum() {
+  albumMenu.classList.remove('hide-view');
+  albumPlayer.classList.add('hide-view');
+  switchBtn.style.visibility = 'hidden';
 }
 
 function loadSong(song) {
   songTitle.innerHTML = '';
   songTitle.innerHTML = `${song}`;
   audioTag.src = `music/${albumCurrent}/${song}.mp3`;
+  songCurrent = song;
 }
 
 function playSong() {
@@ -152,6 +176,34 @@ function pauseSong() {
   audioTag.pause();
 }
 
+function updateProgress(e) {
+  const { duration, currentTime } = e.target;
+  const percentProgress = (currentTime / duration) * 100;
+  progressBar.style.width = `${percentProgress}%`;
+}
+
+function setProgress(e) {
+  const clickX = e.offsetX;
+  const progressWidth = this.clientWidth;
+  const duration = audioTag.duration;
+
+  audioTag.currentTime = (clickX / progressWidth) * duration;
+}
+
+function playNextSong() {
+  const albumArr = convertToVariable(albumCurrent);
+  let songIndex = albumArr.findIndex((song) => song === songCurrent);
+  if (songIndex < albumArr.length - 1) {
+    songIndex++;
+    loadSong(albumArr[songIndex]);
+    playSong();
+  } else {
+    songIndex = 0;
+    loadSong(albumArr[songIndex]);
+    playSong();
+  }
+}
+
 initAlbums();
 
 // Listen for album to be selected
@@ -161,13 +213,23 @@ for (var img of document.querySelectorAll('#album-menu img')) {
   });
 }
 
-//listen for play/pause button to be pressed
+// Listen for play/pause button to be pressed
 playPause.addEventListener('click', () => {
   const isPlaying = musicControls.classList.contains('playing');
-  console.log(isPlaying);
   if (isPlaying) {
     pauseSong();
   } else {
     playSong();
   }
 });
+
+// Listen for progress bar click
+progressBox.addEventListener('click', setProgress);
+
+// Update progress bar with audio
+audioTag.addEventListener('timeupdate', updateProgress);
+
+// Listen for Switch button clicked to change the view;
+switchBtn.addEventListener('click', switchAlbum);
+
+audioTag.addEventListener('ended', playNextSong);
