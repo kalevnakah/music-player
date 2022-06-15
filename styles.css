@@ -84,20 +84,52 @@ body {
   border-bottom: 4px solid var(--border-color);
   display: flex;
   flex-direction: row;
-  height: 347px;
+  height: 358px;
 }
 
 .album-img-box {
-  height: 100%;
+  height: 350px;
+  width: 350px;
   background-color: #000;
+  perspective: 1000px;
+  cursor: pointer;
 }
 
-.album-img-box img {
+.album-img-box-inner {
+  position: relative;
   height: 100%;
+  width: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+/* .album-img-box-inner .clicked {
+  transform: rotateY(180deg);
+} */
+
+.album-img-front,
+.album-img-back {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+}
+
+.album-img-front {
+  background-color: var(--background-black);
+  color: var(--background-white);
+}
+
+.album-img-back {
+  background-color: var(--brand-color);
+  color: var(--background-white);
+  transform: rotateY(180deg);
 }
 
 .album-song-list {
-  width: 100%;
+  width: 240px;
   border-left: 4px solid var(--border-color);
   overflow-y: scroll;
 }
@@ -125,7 +157,7 @@ body {
   display: flex;
   flex-direction: row;
   overflow-x: scroll;
-  height: 347px;
+  height: 358px;
 }
 
 .album-menu img {

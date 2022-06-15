@@ -3,7 +3,9 @@ const switchBtn = document.getElementById('switch-album');
 const albumTitle = document.getElementById('album-title');
 
 //Album Image and Songs
-const albumImage = document.getElementById('album-img');
+const albumImageFront = document.getElementById('album-img-front');
+const albumImageBack = document.getElementById('album-img-back');
+const albumImageInner = document.getElementById('album-img-box-inner');
 const songList = document.getElementById('song-list');
 
 //album Menu and Player
@@ -121,7 +123,8 @@ function initAlbums() {
 function loadAlbum(album) {
   albumCurrent = album;
   albumTitle.innerHTML = `${album}`;
-  albumImage.src = `images/${album}.jpg`;
+  albumImageFront.src = `images/${album}.jpg`;
+  albumImageBack.src = `images/${album}Back.jpg`;
 
   songList.innerHTML = '';
 
@@ -148,11 +151,33 @@ function loadAlbum(album) {
   switchBtn.style.visibility = 'visible';
 }
 
+// Flip album cover
+function flipAlbum() {
+  if (albumImageInner.classList.contains('clicked')) {
+    unFlipAlbum();
+  } else {
+    albumImageInner.style.MozTransform = 'rotateY(180deg)';
+    albumImageInner.style.msTransform = 'rotateY(180deg)';
+    albumImageInner.style.OTransform = 'rotateY(180deg)';
+    albumImageInner.style.transform = 'rotateY(180deg)';
+    albumImageInner.classList.add('clicked');
+  }
+}
+
+function unFlipAlbum() {
+  albumImageInner.style.MozTransform = 'rotateY(0deg)';
+  albumImageInner.style.msTransform = 'rotateY(0deg)';
+  albumImageInner.style.OTransform = 'rotateY(0deg)';
+  albumImageInner.style.transform = 'rotateY(0deg)';
+  albumImageInner.classList.remove('clicked');
+}
+
 // Switch to album selection view
 function switchAlbum() {
   albumMenu.classList.remove('hide-view');
   albumPlayer.classList.add('hide-view');
   switchBtn.style.visibility = 'hidden';
+  unFlipAlbum();
 }
 
 function loadSong(song) {
@@ -232,3 +257,6 @@ audioTag.addEventListener('ended', playNextSong);
 
 // Listen for Switch button clicked to change the view;
 switchBtn.addEventListener('click', switchAlbum);
+
+// Click on album
+albumImageInner.addEventListener('click', flipAlbum);
